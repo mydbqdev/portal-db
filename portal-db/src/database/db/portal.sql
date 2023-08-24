@@ -27,7 +27,7 @@ CREATE TABLE `employee_master` (
   UNIQUE KEY `employee_master_UN` (`personal_email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO qa_emp_portal.employee_master (emp_email, emp_band, emp_name, emp_code, designation, middle_name, last_name, date_of_birth, gender, blood_group, relation, personal_email, profile, emp_join_date, form_of_address, nationality, country_of_birth, `year`, process_data, picture, current_address, permanent_address, posted_on) VALUES('sysadmin@mydbq.com', 'D0', 'SYS', '9', 'SYSTEM', NULL, 'Admin', '2020-04-01', 'Male', NULL, NULL, 'sysadmin@dbq.com', NULL, '2020-04-01', 'Mr.', 'Indian', 'India', NULL, 1, NULL, NULL, NULL, NULL);
+INSERT INTO employee_master (emp_email, emp_band, emp_name, emp_code, designation, middle_name, last_name, date_of_birth, gender, blood_group, relation, personal_email, profile, emp_join_date, form_of_address, nationality, country_of_birth, `year`, process_data, picture, current_address, permanent_address, posted_on) VALUES('sysadmin@mydbq.com', 'D0', 'SYS', '9', 'SYSTEM', NULL, 'Admin', '2020-04-01', 'Male', NULL, NULL, 'sysadmin@dbq.com', NULL, '2020-04-01', 'Mr.', 'Indian', 'India', NULL, 1, NULL, NULL, NULL, NULL);
 
 CREATE TABLE `user_role` (
   `user_id` varchar(350) NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE `user_role` (
   CONSTRAINT `user_role_FK_1` FOREIGN KEY (`user_id`) REFERENCES `employee_master` (`emp_email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO qa_emp_portal.user_role (user_id, role_id, id) VALUES('sysadmin@mydbq.com', 1, 1);
+INSERT INTO user_role (user_id, role_id, id) VALUES('sysadmin@mydbq.com', 1, 1);
 
 CREATE TABLE `employee_login_details` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -55,7 +55,7 @@ CREATE TABLE `employee_login_details` (
   CONSTRAINT `employee_login_details_FK` FOREIGN KEY (`emp_email`) REFERENCES `employee_master` (`emp_email`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO qa_emp_portal.employee_login_details (id, emp_email, emp_password, is_active, isinitial_pwd_change, last_pwd_change_date, is_lock) VALUES(1, 'sysadmin@mydbq.com', 'sysadmin', 'Y', 'Y', '2023-07-26', 0);
+INSERT INTO employee_login_details (id, emp_email, emp_password, is_active, isinitial_pwd_change, last_pwd_change_date, is_lock) VALUES(1, 'sysadmin@mydbq.com', 'sysadmin', 'Y', 'Y', '2023-07-26', 0);
 
 CREATE TABLE `emp_pwd_history` (
   `id` int NOT NULL AUTO_INCREMENT,
