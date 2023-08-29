@@ -381,6 +381,11 @@ CREATE TABLE `full_n_final_settlement_details` (
   `settlement_month` varchar(20) DEFAULT NULL,
   `hrd_no` varchar(100) DEFAULT NULL,
   `doc_dt` date DEFAULT NULL,
+  `designation` varchar(100) DEFAULT NULL,
+  `emp_name` varchar(200) DEFAULT NULL,
+  `month_year` varchar(100) DEFAULT NULL,
+  `total_earnings` varbinary(100) DEFAULT NULL,
+  `total_deductions` varbinary(100) DEFAULT NULL,
   PRIMARY KEY (`emp_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
