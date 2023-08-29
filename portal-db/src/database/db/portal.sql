@@ -409,7 +409,7 @@ CREATE TABLE `hike_details` (
   `monthly_house` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `hike_details_FK` (`emp_email`),
-  CONSTRAINT `hike_details_FK` FOREIGN KEY (`emp_email`) REFERENCES `employee_master` (`emp_email`)
+  CONSTRAINT `hike_details_FK` FOREIGN KEY (`emp_email`) REFERENCES `employee_master` (`emp_email`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
