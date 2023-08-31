@@ -82,6 +82,29 @@ CREATE TABLE `aadhar_details` (
   CONSTRAINT `aadhar_details_FK` FOREIGN KEY (`emp_id`) REFERENCES `employee_master` (`emp_email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+CREATE TABLE `org_project_list` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `project_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `project_name` varchar(100) NOT NULL,
+  `is_active` varchar(1) NOT NULL DEFAULT 'Y',
+  `default_emp` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `org_project_list_UN` (`project_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `org_project_task` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `task_name` varchar(100) NOT NULL,
+  `org_project_id` int DEFAULT NULL,
+  `is_active` varchar(1) NOT NULL DEFAULT 'Y',
+  PRIMARY KEY (`id`),
+  KEY `org_project_task_FK` (`org_project_id`),
+  CONSTRAINT `org_project_task_FK` FOREIGN KEY (`org_project_id`) REFERENCES `org_project_list` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
 CREATE TABLE `assign_project_details` (
   `id` int NOT NULL AUTO_INCREMENT,
   `project` varchar(30) DEFAULT NULL,
@@ -712,27 +735,6 @@ CREATE TABLE `office_time_sheet` (
   `check_out` datetime DEFAULT NULL,
   `id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-CREATE TABLE `org_project_list` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `project_code` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `project_name` varchar(100) NOT NULL,
-  `is_active` varchar(1) NOT NULL DEFAULT 'Y',
-  `default_emp` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `org_project_list_UN` (`project_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
-CREATE TABLE `org_project_task` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `task_name` varchar(100) NOT NULL,
-  `org_project_id` int DEFAULT NULL,
-  `is_active` varchar(1) NOT NULL DEFAULT 'Y',
-  PRIMARY KEY (`id`),
-  KEY `org_project_task_FK` (`org_project_id`),
-  CONSTRAINT `org_project_task_FK` FOREIGN KEY (`org_project_id`) REFERENCES `org_project_list` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
