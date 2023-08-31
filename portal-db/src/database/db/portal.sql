@@ -645,7 +645,7 @@ CREATE TABLE `leave_type_master` (
   `Loss_of_pay_leave` double(30,2) DEFAULT '0.00',
   PRIMARY KEY (`leave_type_id`),
   KEY `user_name` (`user_name`),
-  CONSTRAINT `leave_type_master_FK` FOREIGN KEY (`user_name`) REFERENCES `employee_master` (`emp_email`)
+  CONSTRAINT `leave_type_master_FK` FOREIGN KEY (`user_name`) REFERENCES `employee_master` (`emp_email`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
