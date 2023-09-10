@@ -38,7 +38,7 @@ CREATE TABLE `user_role` (
   KEY `user_role_FK` (`role_id`),
   CONSTRAINT `user_role_FK` FOREIGN KEY (`role_id`) REFERENCES `app_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_role_FK_1` FOREIGN KEY (`user_id`) REFERENCES `employee_master` (`emp_email`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO user_role (user_id, role_id, id) VALUES('sysadmin@mydbq.com', 1, 1);
 
@@ -650,12 +650,14 @@ CREATE TABLE `leave_request` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE leave_type_master;
+
 CREATE TABLE `leave_type_master` (
-  `leave_type_id` int NOT NULL AUTO_INCREMENT,
-  `year` varchar(20) DEFAULT NULL,
-  `leave_type` varchar(20) DEFAULT NULL,
+  `id` int DEFAULT '0',
+  `year` varchar(4)  NOT NULL,
+  `leave_type` varchar(20) NOT NULL,
   `number_of_leaves` double(30,2) DEFAULT NULL,
-  `user_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `user_name` varchar(100) NOT NULL,
   `availed` double(30,2) DEFAULT '0.00',
   `accrued` double(30,2) DEFAULT NULL,
   `opening_Balance` double(30,2) DEFAULT '0.00',
@@ -666,12 +668,10 @@ CREATE TABLE `leave_type_master` (
   `max_carry_forward` double(30,2) DEFAULT '0.00',
   `lapsable` double(30,2) DEFAULT '0.00',
   `Loss_of_pay_leave` double(30,2) DEFAULT '0.00',
-  PRIMARY KEY (`leave_type_id`),
+  PRIMARY KEY (`year`,`leave_type`,`user_name`),
   KEY `user_name` (`user_name`),
   CONSTRAINT `leave_type_master_FK` FOREIGN KEY (`user_name`) REFERENCES `employee_master` (`emp_email`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `my_performance` (
   `performance_id` int NOT NULL AUTO_INCREMENT,
@@ -962,6 +962,45 @@ CREATE TABLE `uan_details` (
   UNIQUE KEY `uan_details_UN` (`uan`),
   CONSTRAINT `uan_details_FK` FOREIGN KEY (`emp_id`) REFERENCES `employee_master` (`emp_email`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+ALTER TABLE ems_login_details CHANGE emp_password emp_password2 varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL;
+ALTER TABLE ems_login_details ADD emp_password VARBINARY(100) NULL;
+UPDATE ems_login_details eld set eld.emp_password =AES_ENCRYPT(eld.emp_password2 ,'mydbq@2023');
+ALTER TABLE ems_login_details DROP COLUMN emp_password2;
+
+
+ALTER TABLE employee_login_details CHANGE emp_password emp_password2 varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL;
+ALTER TABLE employee_login_details ADD emp_password VARBINARY(100) NULL;
+UPDATE employee_login_details eld set eld.emp_password =AES_ENCRYPT(eld.emp_password2 ,'mydbq@2023');
+ALTER TABLE employee_login_details DROP COLUMN emp_password2;
+
+ALTER TABLE emp_pwd_history CHANGE pwd pwd2 varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL;
+ALTER TABLE emp_pwd_history ADD pwd VARBINARY(100) NULL;
+UPDATE emp_pwd_history eld set eld.pwd =AES_ENCRYPT(eld.pwd2 ,'mydbq@2023');
+ALTER TABLE emp_pwd_history DROP COLUMN pwd2;
+
+
+INSERT INTO role_screen (role_id, screen_name, read_prv, write_prv) VALUES(1, 'BRANCH_INFO', 1, 1);
+INSERT INTO role_screen (role_id, screen_name, read_prv, write_prv) VALUES(1, 'SALARY_ACCOUNT_DETAILS_REPORT', 1, 1);
+INSERT INTO role_screen (role_id, screen_name, read_prv, write_prv) VALUES(1, 'USER_MASTER', 1, 1);
+
+UPDATE countries set currency_name='Canada Dollars – CAD',country_ph_code='+1' where country_name='Canada';
+UPDATE countries set currency_name='China Yuan Renminbi – CNY',country_ph_code='+86' where country_name='China';
+UPDATE countries set currency_name='France Francs – FRF',country_ph_code='+33' where country_name='France';
+UPDATE countries set currency_name='Germany Deutsche Marks – DEM',country_ph_code='+49' where country_name='Germany';
+UPDATE countries set currency_name='Italy Lire – ITL',country_ph_code='+39' where country_name='Italy';
+
+UPDATE countries set currency_name='Japan Yen – JPY',country_ph_code='+81' where country_name='Japan';
+UPDATE countries set currency_name='Kuwait Dinars – KWD',country_ph_code='+60' where country_name='Kuwait';
+UPDATE countries set currency_name='Malaysia Ringgits – MYR',country_ph_code='+60' where country_name='Malaysia';
+
+UPDATE countries set currency_name='New Zealand Dollars – NZD',country_ph_code='+64' where country_name='New Zealand';
+UPDATE countries set currency_name='Russia Rubles – RUB',country_ph_code='+7' where country_name='Russia';
+UPDATE countries set currency_name='Saudi Arabis-RIAL',country_ph_code='+966' where country_name='Saudi Arabia';
+
+UPDATE countries set currency_name='Singapore Dollars – SGD',country_ph_code='+65' where country_name='Singapore';
+UPDATE countries set currency_name='United Arab Emirates Dirhams – AED',country_ph_code='+971' where country_name='UAE';
+UPDATE countries set currency_name='United Kingdom Pounds – GBP',country_ph_code='+44' where country_name='UK';
 
 
 

@@ -1,6 +1,6 @@
 --- qa_emp_portal db name, pls change accordingly.
 
-CREATE PROCEDURE `qa_emp_portal`.`approval_rm_change`(IN empcode INT, IN reqtype CHAR(20),IN createdt CHAR(20),IN empid CHAR(100))
+CREATE PROCEDURE `approval_rm_change`(IN empcode INT, IN reqtype CHAR(20),IN createdt CHAR(20),IN empid CHAR(100))
 BEGIN
 	DECLARE countRow INT;
 	UPDATE reporting_manager_requests rm1 SET rm1.old_rm_approval = CASE WHEN (rm1.old_rm = empcode and rm1.old_rm_approval='Pending') THEN reqtype  WHEN rm1.old_rm_approval='Pending' THEN 'Pending' WHEN rm1.old_rm_approval='Approved' THEN 'Approved' WHEN rm1.old_rm_approval='Rejected' THEN 'Rejected' END,
@@ -37,16 +37,18 @@ END;
 
 
 
-CREATE PROCEDURE `qa_emp_portal`.`change_reset_pwd`(IN empid CHAR(100),IN newPwd CHAR(100),IN oldPwd CHAR(100))
+drop PROCEDURE change_reset_pwd;
+
+CREATE  PROCEDURE `change_reset_pwd`(IN empid CHAR(100),IN newPwd CHAR(100),IN oldPwd CHAR(100))
 BEGIN
 	DECLARE countRow INT;
     DECLARE countTotlRecord INT;
-	UPDATE employee_login_details el set el.emp_password =newPwd,el.last_pwd_change_date =CURDATE(),el.is_active='Y',el.is_lock=0 ,el.isinitial_pwd_change='Y'
-    WHERE el.emp_email =empid and el.emp_password=oldPwd;
+	UPDATE employee_login_details el set el.emp_password =AES_ENCRYPT(newPwd ,'mydbq@2023'),el.last_pwd_change_date =CURDATE(),el.is_active='Y',el.is_lock=0 ,el.isinitial_pwd_change='Y'
+    WHERE el.emp_email =empid and AES_DECRYPT(el.emp_password, 'mydbq@2023')=oldPwd;
     
    SET countRow= ROW_COUNT();
    IF(countRow >0) THEN
-     INSERT INTO emp_pwd_history (emp_id,pwd) values(empid,newPwd);
+     INSERT INTO emp_pwd_history (emp_id,pwd) values(empid,AES_ENCRYPT(newPwd ,'mydbq@2023'));
    END IF;
    SET countTotlRecord = (SELECT COUNT(*) FROM emp_pwd_history where emp_id= empid);
    IF(countTotlRecord >3) THEN
@@ -55,8 +57,9 @@ BEGIN
 END;
 
 
+drop PROCEDURE data_process_onboard;
 
-CREATE PROCEDURE `qa_emp_portal`.`data_process_onboard`(IN empCode CHAR(100),IN password CHAR(100))
+CREATE  PROCEDURE `data_process_onboard`(IN empCode CHAR(100),IN password CHAR(100))
 BEGIN
 	DECLARE countRecordPers INT;
     DECLARE countRecordLogin INT;
@@ -81,7 +84,7 @@ BEGIN
  END IF;
 
 IF(countRecordLogin <1) THEN
-   insert into employee_login_details (emp_email,emp_password,is_active) select em.emp_email ,password as pwd,'Y' as is_active from employee_master em where em.emp_code=empCode;
+   insert into employee_login_details (emp_email,emp_password,is_active) select em.emp_email ,AES_ENCRYPT(password ,'mydbq@2023') as pwd,'Y' as is_active from employee_master em where em.emp_code=empCode;
 ELSE
     UPDATE employee_login_details set is_active='Y' where emp_email =(select em.emp_email from employee_master em where em.emp_code=empCode);
 END IF;
