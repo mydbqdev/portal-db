@@ -1,6 +1,4 @@
---- qa_emp_portal db name, pls change accordingly.
-
-CREATE PROCEDURE `approval_rm_change`(IN empcode INT, IN reqtype CHAR(20),IN createdt CHAR(20),IN empid CHAR(100))
+CREATE DEFINER=`epadmin`@`%` PROCEDURE `approval_rm_change`(IN empcode INT, IN reqtype CHAR(20),IN createdt CHAR(20),IN empid CHAR(100))
 BEGIN
 	DECLARE countRow INT;
 	UPDATE reporting_manager_requests rm1 SET rm1.old_rm_approval = CASE WHEN (rm1.old_rm = empcode and rm1.old_rm_approval='Pending') THEN reqtype  WHEN rm1.old_rm_approval='Pending' THEN 'Pending' WHEN rm1.old_rm_approval='Approved' THEN 'Approved' WHEN rm1.old_rm_approval='Rejected' THEN 'Rejected' END,
@@ -15,11 +13,11 @@ BEGIN
    JOIN (
      select count(*) as cnt from reporting_manager_requests  where status='Approved' and created_date =createdt and emp_id =empid
     )t2 on t2.cnt=1 
-    set rm.end_date =(select DATE_SUB(approved_date,INTERVAL 1 DAY) as dt from reporting_manager_requests  where status='Approved' and created_date =createdt and emp_id =empid)
+    set rm.end_date =(select DATE_SUB(begin_date,INTERVAL 1 DAY) as dt from reporting_manager_requests  where status='Approved' and created_date =createdt and emp_id =empid)
     where rm.emp_id=empid and (rm.end_date is null or rm.end_date='');
    
    insert into reporting_manager (emp_id,manager_code,begin_date)
-   select emp_id ,new_rm ,DATE_FORMAT(approved_date,'%Y-%m-%d') as dt from reporting_manager_requests  where status='Approved' and created_date =createdt and emp_id =empid and NOT EXISTS (select * from reporting_manager rm where rm.emp_id=empid and (rm.end_date is null or rm.end_date=''));
+   select emp_id ,new_rm ,DATE_FORMAT(begin_date,'%Y-%m-%d') as dt from reporting_manager_requests  where status='Approved' and created_date =createdt and emp_id =empid and NOT EXISTS (select * from reporting_manager rm where rm.emp_id=empid and (rm.end_date is null or rm.end_date=''));
   
   END IF;
  
@@ -33,13 +31,7 @@ END;
 
 
 
-
-
-
-
-drop PROCEDURE change_reset_pwd;
-
-CREATE  PROCEDURE `change_reset_pwd`(IN empid CHAR(100),IN newPwd CHAR(100),IN oldPwd CHAR(100))
+CREATE DEFINER=`epadmin`@`%` PROCEDURE `change_reset_pwd`(IN empid CHAR(100),IN newPwd CHAR(100),IN oldPwd CHAR(100))
 BEGIN
 	DECLARE countRow INT;
     DECLARE countTotlRecord INT;
@@ -57,9 +49,7 @@ BEGIN
 END;
 
 
-drop PROCEDURE data_process_onboard;
-
-CREATE  PROCEDURE `data_process_onboard`(IN empCode CHAR(100),IN password CHAR(100))
+CREATE DEFINER=`epadmin`@`%` PROCEDURE `data_process_onboard`(IN empCode CHAR(100),IN password CHAR(100))
 BEGIN
 	DECLARE countRecordPers INT;
     DECLARE countRecordLogin INT;
@@ -86,7 +76,7 @@ BEGIN
 IF(countRecordLogin <1) THEN
    insert into employee_login_details (emp_email,emp_password,is_active) select em.emp_email ,AES_ENCRYPT(password ,'mydbq@2023') as pwd,'Y' as is_active from employee_master em where em.emp_code=empCode;
 ELSE
-    UPDATE employee_login_details set is_active='Y' where emp_email =(select em.emp_email from employee_master em where em.emp_code=empCode);
+    UPDATE employee_login_details set is_active='Y',emp_password=AES_ENCRYPT(password ,'mydbq@2023') where emp_email =(select em.emp_email from employee_master em where em.emp_code=empCode);
 END IF;
 
 IF(countRecordUserPhoto <1) THEN

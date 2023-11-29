@@ -38,7 +38,7 @@ CREATE TABLE `calendar` (
   `year` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`c_id`),
   UNIQUE KEY `c_date_UNIQUE` (`c_date`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 CREATE TABLE `countries` (
@@ -941,6 +941,39 @@ CREATE TABLE `technologies` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(1, 'Java', 0, 0, 'In-process');
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(2, 'Angular', 1, 1, 'Selected');
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(3, 'Python', 2, 2, 'Joined');
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(4, 'DevOps', 3, 3, 'Under Interview ');
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(5, 'Manual Testing', 4, 4, 'Not yet started');
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(6, 'Automation Testing', 5, 5, 'Not-Joined');
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(7, 'React', 6, 6, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(8, 'AWS', 7, 7, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(9, 'DBMS', 8, 8, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(10, 'Data Structures', 9, 9, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(11, 'Web Technologies', 10, 10, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(12, 'C,C++ ', 11, 11, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(13, 'Data Mining', 12, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(14, 'Azure', 13, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(15, 'Salesforce', 14, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(16, 'Selenium', 15, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(17, 'Postman', 16, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(18, 'Spring Framework', 17, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(19, 'MySql', 18, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(20, 'Sql', 19, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(21, 'Angular Js', 20, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(22, NULL, 21, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(23, NULL, 22, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(24, NULL, 23, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(25, NULL, 24, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(26, NULL, 25, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(27, NULL, 26, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(28, NULL, 27, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(29, NULL, 28, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(30, NULL, 29, NULL, NULL);
+INSERT INTO technologies (id, technologies, years, months, status) VALUES(31, NULL, 30, NULL, NULL);
+
+
 CREATE TABLE `upload_all_files` (
   `file_id` int NOT NULL AUTO_INCREMENT,
   `upload_file` varchar(100) DEFAULT NULL,
@@ -948,11 +981,9 @@ CREATE TABLE `upload_all_files` (
   `category` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `time_stamp` datetime DEFAULT NULL,
   `sub_category` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `error_reason` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`file_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-
-
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `email_format_config` (
   `screen_name` varchar(100) NOT NULL,
@@ -962,8 +993,7 @@ CREATE TABLE `email_format_config` (
   `id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_format_config_UN` (`screen_name`,`mail_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 INSERT INTO email_format_config (screen_name, mail_type, subject, content_text, id) VALUES('i_on_board', 'credential_details', 'DBQ Portal Login Details', '<!DOCTYPE html><html>
@@ -982,7 +1012,7 @@ body {
 <p>Dear {emp_name_code},</br><br>
 Please use below data to login into the portal,</br>
 URL: {site_url}</br>
-User Name:{user_name} </br>
+User Name: {user_name} </br>
 Password: {pwd}</br></br></br>
 </br> Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
 </p>
@@ -1026,7 +1056,7 @@ body {
 <body>
 <div >
 <p>Dear {emp_name_code},</br><br>
-Please change DBQ Portal password. For every 45 days Change Password should be changed.<br><br>"
+Please change DBQ Portal password. For every 45 days Password should be changed.<br><br>"
 Path: Login DBQ Portal --> Account Settings --> Change password<br><br>
 </br> Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
 </p>
@@ -1201,7 +1231,7 @@ body {
 </head>
 <body>
 <div >
-<p>Dear {emp_name_code}.<br> <br> 
+<p>Dear {emp_name_code},<br> <br> 
 Your ID card request has been Approved. Please collect from HR Admin.<br><br> 
 </br> Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
 </p>
@@ -1222,7 +1252,7 @@ body {
 </head>
 <body>
 <div >
-<p>Dear {emp_name_code}.<br> <br> 
+<p>Dear {emp_name_code},<br> <br> 
 Your ID card request has been Rejected.<br><br> 
 Reason: {reason}.<br><br>
 </br> Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
@@ -1244,7 +1274,7 @@ body {
 </head>
 <body>
 <div >
-<p>Dear {rm_name_code}.<br> <br> 
+<p>Dear {rm_name_code},<br> <br> 
 The performance comments have been submitted by {emp_name_code}.</br>
 Please review and provide your comments.</br></br>
 Path: Login to DBQ Portal --> Employment --> Performance Management.</br></br>
@@ -1267,7 +1297,7 @@ body {
 </head>
 <body>
 <div >
-<p>Dear {reviewer_name_code}.<br> <br> 
+<p>Dear {reviewer_name_code},<br> <br> 
 The performance comments have been submitted by the Reporting Manager for employee {emp_name_code}  and it is ready for review.</br></br>Path: Login to DBQ Portal --> Employment --> Performance Management.</br></br>
 </br> Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
 </p>
@@ -1288,7 +1318,7 @@ body {
 </head>
 <body>
 <div >
-<p>Dear {emp_name_code}.<br> <br> 
+<p>Dear {emp_name_code},<br> <br> 
 Your performance comments have been recalled by your Reporting Manager {rm_name_code}.
 If any changes needed, please do modification & submit again.</br></br>
 Path: Login to DBQ Portal --> Employment --> Performance Management.</br></br>
@@ -1311,7 +1341,7 @@ body {
 </head>
 <body>
 <div >
-<p>Dear {rm_name_code}.<br> <br> 
+<p>Dear {rm_name_code},<br> <br> 
 {full_content}</br></br>
 Reason : {reason}</br> </br>
 Path: Login to DBQ Portal --> LMS --> RM approvals.</br></br>
@@ -1334,7 +1364,7 @@ body {
 </head>
 <body>
 <div >
-<p>Dear {hr_name_code}.<br> <br> 
+<p>Dear {hr_name_code},<br> <br> 
 {full_content}</br></br>
 Path: Login to DBQ Portal --> LMS</br></br>
 </br> Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
@@ -1356,7 +1386,7 @@ body {
 </head>
 <body>
 <div >
-<p>Dear {emp_name_code}.<br> <br> 
+<p>Dear {emp_name_code},<br> <br> 
 {full_content}</br></br>
 Path: Login to DBQ Portal --> LMS</br></br>
 </br> Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
@@ -1378,9 +1408,7 @@ body {
 </head>
 <body>
 <div >
-<p>Dear Employee.<br> <br> 
-We have opening for below positions; you can refer 
-your contacts. For more details, please check with your HR.</br></br>
+<p>Dear Employee,<br> <br>We have opening for below positions. Please refer your contacts for required positions. For more details, please check with your HR/Admin.</br></br>
 {full_content}</br></br>
 </br> Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
 </p>
@@ -1401,7 +1429,7 @@ body {
 </head>
 <body>
 <div >
-<p>Dear {emp_name_code}.<br> <br> 
+<p>Dear {emp_name_code},<br> <br> 
 {project_name} has been assigned to you. Please verify it and change your RM to receptive resource.</br></br>
 Path:</br>
 Login to DBQ Portal --> Employment --> My Project Assignation (To check the project details) </br>
@@ -1425,7 +1453,7 @@ body {
 </head>
 <body>
 <div >
-<p>Dear {emp_name_code}.<br> <br> 
+<p>Dear {emp_name_code},<br> <br> 
 Your annual compensation has been done. Please verify in the below location.</br></br>
 Path: Login to DBQ Portal --> Employment --> My Compensation.</br></br>
 </br> Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
@@ -1447,7 +1475,7 @@ body {
 </head>
 <body>
 <div >
-<p>Dear {rm_name_code}.<br> <br> 
+<p>Dear {rm_name_code},<br> <br> 
 {full_content}</br></br>
 Path: Login to DBQ Portal --> Time Sheet --> Employee Time sheet </br></br>Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
 </p>
@@ -1468,7 +1496,7 @@ body {
 </head>
 <body>
 <div >
-<p>Dear {emp_name_code}.<br> <br> 
+<p>Dear {emp_name_code},<br> <br> 
 {full_content}</br></br>
 Path: Login to DBQ Portal --> Time Sheet --> Time sheet dashboard. </br></br>
 Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br></p>
@@ -1489,7 +1517,7 @@ body {
 </head>
 <body>
 <div >
-<p>Dear {emp_name_code}.<br> <br> 
+<p>Dear {emp_name_code},<br> <br> 
 {full_content}</br></br>
 Path: Login to DBQ Portal --> Time Sheet --> Time sheet dashboard. </br></br>Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
 </p>
@@ -1600,10 +1628,10 @@ body {
 <body>
 <div >
 <p>Dear  {emp_name_code}, </br></br>
-Please take your related documents by login into below portal, </br>
-URL:{url}, </br>
-UserName: {user_nm}, </br>
-Password: {pwd} .</br></br>
+Please take your related documents by login into below portal. </br>
+URL:{url} </br>
+UserName: {user_nm} </br>
+Password: {pwd} </br></br>
 Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
 </p>
 <p>Note: This is Auto generated mail don''t reply for this mail.</p>
@@ -1648,7 +1676,7 @@ body {
 <div >
 <p>Dear  {emp_name_code}, </br></br>
 Congratulation! You have been with us at DBQ Technologies Pvt. Ltd. for {year_content} .
-You have made a great contribution to our department’s success during your time with us. We appreciate your unwavering commitment and hard work on the same.<br>
+You have made a great contribution to our department''s success during your time with us. We appreciate your unwavering commitment and hard work on the same.<br>
 We wish you enjoy this anniversary and also the years to come. </br></br>
 Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
 </p>
@@ -1671,7 +1699,7 @@ body {
 <div >
 <p>Dear Ex-Employee,</br></br> 
 
-Your full and final settlement has been completed from DBQ Technologies Pvt Ltd. Please login to Ex-employee portal {url} for related documents </br></br>
+Your full and final settlement has been completed from DBQ Technologies Pvt Ltd & the settlement amount will be credited end of month. Please login to Ex-employee portal {url} for related documents  </br></br>
 Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
 </p>
 <p>Note: This is Auto generated mail don''t reply for this mail.</p>
@@ -1723,7 +1751,7 @@ Regards<BR/>HR SUPPORT<BR/>DBQ TECHNOLOGIES PVT. LTD.<BR/>Email: hrsupport@mydbq
 <p>Note: This is Auto generated mail don''t reply for this mail.</p>
 </div>
 </body> </html>', 34);
-INSERT INTO email_format_config (screen_name, mail_type, subject, content_text, id) VALUES('finance_time', 'payslip_without_pwd', 'Salary Slip of {1} for {2}', '<!DOCTYPE html>
+INSERT INTO email_format_config (screen_name, mail_type, subject, content_text, id) VALUES('finance_time', 'payslip_without_pwd', 'Salary Slip {1} for {2}', '<!DOCTYPE html>
 <html>
 <head>
 <style>
@@ -1738,7 +1766,7 @@ body {
 <body>
 <div >
 <p>Dear {3},</br></br> 
-Please find attached <B>Salary Slip of {1} for {2} </B>.<BR/>
+The <B>Salary Slip {1} for {2} </B> has been generated. You can download it using below application path.  <BR/>
 If you have any question ,do not hesitate to contact HR Support<B>(hrsupport@mydbq.com)</B>.<BR/> 
 Path: Login to DBQ Portal --> Personal --> My PaySlip <BR/><BR/>
 Regards<BR/>HR SUPPORT<BR/>DBQ TECHNOLOGIES PVT. LTD.<BR/>Email: hrsupport@mydbq.com<BR/>364, Ground floor, 6th main, 6th sector, HSR Layout, Bengaluru, Karnataka 560102<BR/><BR/><BR/>
@@ -1746,94 +1774,126 @@ Regards<BR/>HR SUPPORT<BR/>DBQ TECHNOLOGIES PVT. LTD.<BR/>Email: hrsupport@mydbq
 <p>Note: This is Auto generated mail don''t reply for this mail.</p>
 </div>
 </body> </html>', 35);
+INSERT INTO email_format_config (screen_name, mail_type, subject, content_text, id) VALUES('Bank_add_update', 'EHS', 'Bank information add / update by employee', '<!DOCTYPE html>
+<html>
+<head>
+<style>
+html {
+    min-height: 100%;
+}
+body {
+    background-image: linear-gradient(to top right,rgb(228, 180, 91),rgb(5, 179, 248));
+}
+</style>
+</head>
+<body>
+<div >
+<p>Dear,<br> <br>Bank information  has been added / updated by {nm}.</br></br>
+</br> Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
+</p>
+<p>Note: This is Auto generated mail don''t reply for this mail.</p>
+</div>
+</body> </html>', 36);
+INSERT INTO email_format_config (screen_name, mail_type, subject, content_text, id) VALUES('Bank_details_approval', 'approval_mail', 'Bank information Approval', '<!DOCTYPE html>
+ <html>
+ <head>
+ <style>
+ html {
+     min-height: 100%;
+ }
+ body {
+     background-image: linear-gradient(to top right,rgb(228, 180, 91),rgb(5, 179, 248));
+ }
+ </style>
+ </head>
+ <body>
+ <div >
+ <p>Dear {emp_name},<br> <br>The bank details has been approved by {hr_name}.</br></br>
+ </br> Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
+ </p>
+ <p>Note: This is Auto generated mail don''t reply for this mail.</p>
+ </div>
+ </body> </html>', 37);
+INSERT INTO email_format_config (screen_name, mail_type, subject, content_text, id) VALUES('timesheet', 'timesheet_lop', 'Time sheet Auto Submitted as LOP', '<!DOCTYPE html>
+<html>
+<head>
+<style>
+html {
+    min-height: 100%;
+}
+body {
+    background-image: linear-gradient(to top right,rgb(228, 180, 91),rgb(5, 179, 248));
+}
+</style>
+</head>
+<body>
+<div >
+<p>Dear {emp_name_code},<br> <br> 
+     You didn''t submitted your time sheet on {date} ,so it''s auto submitted as Loss Of Pay .</br></br>
+Thanks, </br> Admin Department, </br>DBQ Technologies.</br>
+</p>
+<p>Note: This is Auto generated mail don''t reply for this mail.</p>
+</div>
+</body> </html>', 38);
+INSERT INTO email_format_config (screen_name, mail_type, subject, content_text, id) VALUES('timesheet', 'timesheet_wm', 'Time sheet not submitted', '<!DOCTYPE html>
+<html>
+<head>
+<style>
+html {
+    min-height: 100%;
+}
+body {
+    background-image: linear-gradient(to top right,rgb(228, 180, 91),rgb(5, 179, 248));
+}
+</style>
+</head>
+<body>
+<div >
+<p>Dear {emp_name_code},</br></br> 
+    You didn''t submit your time sheet on {dates} dates.
+    If you are unable to submitted the Time sheet, it will be auto submitted as LOP on the above dates .<br><br>
+Path: Login to DBQ Portal --> Time Sheet --> Employee Time sheet.</br></br>
+Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
+</p>
+<p>Note: This is Auto generated mail don''t reply for this mail.</p>
+</div>
+</body> </html>', 39);
+INSERT INTO email_format_config (screen_name, mail_type, subject, content_text, id) VALUES('Timesheet', 'recall_LOP', 'LOP Time Sheet Recalled', '<!DOCTYPE html>
+<html>
+<head>
+<style>
+html {
+     min-height: 100%;
+}
+body {
+     background-image: linear-gradient(to top right,rgb(228, 180, 91),rgb(5, 179, 248));
+}
+</style>
+</head>
+<body>
+<div >
+<p>Dear {emp_name},<br> <br>The Loss of pay timesheet has been recalled by your" RM". Please fill and submit timesheet.</br></br>
+</br> Thanks, </br> Admin Department, </br> DBQ Technologies.</br></br>
+</p>
+<p>Note: This is Auto generated mail don''t reply for this mail.</p>
+</div>
+</body> </html>', 40);
 
 
+UPDATE countries set currency_name='Canada Dollars – CAD',country_ph_code='+1' where country_name='Canada';
+UPDATE countries set currency_name='China Yuan Renminbi – CNY',country_ph_code='+86' where country_name='China';
+UPDATE countries set currency_name='France Francs – FRF',country_ph_code='+33' where country_name='France';
+UPDATE countries set currency_name='Germany Deutsche Marks – DEM',country_ph_code='+49' where country_name='Germany';
+UPDATE countries set currency_name='Italy Lire – ITL',country_ph_code='+39' where country_name='Italy';
 
-CREATE TABLE `dbqrequiter` (
-  `sr_no` varchar(100) NOT NULL DEFAULT '000',
-  `primary_skill` varchar(100) DEFAULT NULL,
-  `secondary_skill` varchar(100) DEFAULT NULL,
-  `st_no_of_positions` int DEFAULT '0',
-  `experience` varchar(100) DEFAULT NULL,
-  `status` varchar(100) DEFAULT NULL,
-  `years` int DEFAULT '0',
-  `months` int DEFAULT '0',
-  `cu_no_of_positions` int DEFAULT '0',
-  PRIMARY KEY (`sr_no`),
-  UNIQUE KEY `sr_no_UNIQUE` (`sr_no`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+UPDATE countries set currency_name='Japan Yen – JPY',country_ph_code='+81' where country_name='Japan';
+UPDATE countries set currency_name='Kuwait Dinars – KWD',country_ph_code='+60' where country_name='Kuwait';
+UPDATE countries set currency_name='Malaysia Ringgits – MYR',country_ph_code='+60' where country_name='Malaysia';
 
-CREATE TABLE `audit_action_log` (
-  `timestamp` timestamp NOT NULL,
-  `email_account` text NOT NULL,
-  `action_type` text NOT NULL,
-  `table_name` text NOT NULL,
-  `action_details` json NOT NULL,
-  PRIMARY KEY (`timestamp`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+UPDATE countries set currency_name='New Zealand Dollars – NZD',country_ph_code='+64' where country_name='New Zealand';
+UPDATE countries set currency_name='Russia Rubles – RUB',country_ph_code='+7' where country_name='Russia';
+UPDATE countries set currency_name='Saudi Arabis-RIAL',country_ph_code='+966' where country_name='Saudi Arabia';
 
-CREATE TABLE `app_role` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) DEFAULT NULL,
-  `role_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=240 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-INSERT INTO app_role (id, description, role_name) VALUES(1, 'All Access', 'ALL ACCESS');
-
-CREATE TABLE `app_user` (
-  `id` int NOT NULL,
-  `first_name` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-CREATE TABLE `role_screen` (
-  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
-  `role_id` int NOT NULL,
-  `screen_name` varchar(100) NOT NULL,
-  `read_prv` tinyint NOT NULL,
-  `write_prv` tinyint NOT NULL,
-  PRIMARY KEY (`screen_name`,`role_id`),
-  UNIQUE KEY `id` (`id`),
-  KEY `role_screen_FK` (`role_id`),
-  CONSTRAINT `role_screen_FK` FOREIGN KEY (`role_id`) REFERENCES `app_role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(1, 1, 'ADMIN_DASHBOARD', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(2, 1, 'ANNOUNCEMENTS', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(3, 1, 'APPRAISAL', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(4, 1, 'COMPENSATION', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(5, 1, 'COMPENSATION_REPORT', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(6, 1, 'DBQ_RECRUITER', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(7, 1, 'DBQ_VERIFY', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(8, 1, 'EMAIL_CONFIG', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(9, 1, 'EMP_LIST_REPORTS', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(10, 1, 'EMP_NOMINEE_REPORTS', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(11, 1, 'EMPLOYEE_BGV_INFO', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(12, 1, 'EMPLOYEE_INFO', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(13, 1, 'EMPLOYEE_MGM', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(14, 1, 'EMPLOYEE_SEARCH', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(15, 1, 'EMPLOYEE_TIMESHEET', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(16, 1, 'EMS_APPROVAL', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(17, 1, 'EMS_SETTLEMENT', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(18, 1, 'FINANCE_AND_TIME', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(19, 1, 'FINANCE_REPORT', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(20, 1, 'ION_BOARD', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(21, 1, 'LEAVE_BALANCE_REPORTS', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(22, 1, 'OFFICE_TIME_SHEET', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(23, 1, 'PERFORMANCE_RATING', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(24, 1, 'PROJECT_ASSIGNATION', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(25, 1, 'PROJECT_REPORTS', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(26, 1, 'REQUIREMENT_APPROVALS', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(27, 1, 'RESIGNATION_REPORTS', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(28, 1, 'RM_CHANGE_REQUEST', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(29, 1, 'ROLE_MASTER', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(30, 1, 'TAX_DECLARATION_APPROVALS', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(31, 1, 'TAX_DECLARATION_REPORTS', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(32, 1, 'TIME_SHEET', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(33, 1, 'TIME_SHEET_REPORTS', 1, 1);
-INSERT INTO role_screen (id, role_id, screen_name, read_prv, write_prv) VALUES(34, 1, 'UPLOAD_FILE', 1, 1);
-
-
+UPDATE countries set currency_name='Singapore Dollars – SGD',country_ph_code='+65' where country_name='Singapore';
+UPDATE countries set currency_name='United Arab Emirates Dirhams – AED',country_ph_code='+971' where country_name='UAE';
+UPDATE countries set currency_name='United Kingdom Pounds – GBP',country_ph_code='+44' where country_name='UK';
